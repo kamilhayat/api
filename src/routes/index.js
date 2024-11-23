@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
 
-    const { name, company, price, colors, imageURI, description, category, featured } = req.body;
-    if (!name || !company || !price || !colors || !imageURI || !description || !category) {
+    const { name, company, price,  imageURI, description, category, featured } = req.body;
+    if (!name || !company || !price  || !imageURI || !description || !category) {
         return res.status(400).json({ message: 'Missing required fields' });
     }
     try {
@@ -16,7 +16,6 @@ router.post('/', async (req, res) => {
             name,
             company,
             price,
-            colors,
             imageURI,
             description,
             category,

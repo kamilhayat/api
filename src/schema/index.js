@@ -16,12 +16,6 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    colors:
-    {
-        type: [String],
-        required: false
-
-    },
 
     imageURI: {
         type: String,
