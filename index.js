@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose')
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8000
 const productRoutes = require('./src/routes/index')
 require('dotenv').config();
 
@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URI, {})
 app.use('/api/products', productRoutes);
 
 app.get('/', (req, res) => {
-    res.send('API is working! fine');  // Simple message to confirm the API is up
+    res.send('API is working! fine');
 });
 
 app.listen(port, () => {
