@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
 
-    const { name, company, price,  imageURI, description, category, featured } = req.body;
-    if (!name || !company || !price  || !imageURI || !description || !category) {
+    const { name, company, price, imageURI, description, category, featured } = req.body;
+    if (!name || !company || !price || !imageURI || !description || !category) {
         return res.status(400).json({ message: 'Missing required fields' });
     }
     try {
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 
     }
     catch (error) {
-        res.status(400).json({ message: 'Error creating product',error });
+        res.status(400).json({ message: 'Error creating product', error });
     }
 
 })
@@ -40,6 +40,19 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Error fetching products' });
     }
 })
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const product = await productSchema.findById(id);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json(product);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching product', error });
+    }
+});
+
 
 router.get('/featured', async (req, res) => {
     try {
@@ -52,20 +65,20 @@ router.get('/featured', async (req, res) => {
     }
 })
 
-router.delete('/:id', async(req,res)=>{
-    const {id}= req.params;
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
 
-    try{
+    try {
         const deletedProduct = await productSchema.findByIdAndDelete(id);
         if (!deletedProduct) {
-            return res.status(404).json({ message: 'Product not found' }); 
-          }
-        res.json({message: 'product deleted', deletedProduct})
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json({ message: 'product deleted', deletedProduct })
     }
-    catch(error){
-        
+    catch (error) {
 
-        res.status(400).json({message: 'Error deleting product',error})
+
+        res.status(400).json({ message: 'Error deleting product', error })
     }
 })
 module.exports = router;
