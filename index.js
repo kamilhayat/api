@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URI, {})
 app.use('/api/products', productRoutes);
 
 app.get('/', (req, res) => {
-    res.send('API is working! fine');
+    res.send('API is working');
 });
 
 app.listen(port, () => {
